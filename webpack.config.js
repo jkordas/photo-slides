@@ -1,4 +1,4 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   watch: true,
@@ -25,7 +25,7 @@ module.exports = {
         })
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(png|jpg|gif|svg|JPG)$/,
         loader: 'file-loader',
         query: {
           name: '[name].[ext]?[hash]'

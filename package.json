@@ -1,5 +1,5 @@
 {
-  "name": "PhotoSlides",
+  "name": "photo-slides",
   "version": "1.0.0",
   "description": "Photo slides app",
   "main": "main.js",
@@ -8,7 +8,7 @@
     "start": "electron ."
   },
   "author": "Jan Kordas <jkkordas@gmail.com>",
-  "repository": "pastahito/electron-react-webpack",
+  "repository": "jkordas/photo-slides",
   "license": "WTFPL",
   "devDependencies": {
     "babel-core": "6.26.0",
