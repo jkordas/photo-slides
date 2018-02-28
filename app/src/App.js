@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import {render} from 'react-dom'
 import {} from './styles/global.css'
-import Logo from './components/Logo.jsx'
-import Link from './components/Link.js'
+import store from './store'
+import ControlPanel from "./components/ControlPanel";
+
 const remote = require("electron").remote;
 
 document.addEventListener("keydown", event => {
@@ -16,29 +17,31 @@ document.addEventListener("keydown", event => {
   }
 });
 
-const logos = [
-    require('./assets/electron.png'),
-    require('./assets/react.png'),
-    require('./assets/webpack.png')
-];
-
-const images = [
-  require('../../images/DSC_0021.JPG')
-];
 
 export default class App extends Component {
-    render() {
-        const logosRender = logos.map( (logo, index) => {
-            return <Logo key = {index} src = { logo } />
-        });
+  constructor() {
+    super();
 
-        return (
-            <div>
-                {logosRender}
+    store.readFiles(filesLoadedCallback.bind(this));
+    this.state = {images: []};
 
-                <img src={images[0]} width={300}/>
-
-            </div>
-        )
+    function filesLoadedCallback(images) {
+      this.setState({images});
     }
+
+  }
+
+  render() {
+    console.log(this.state.images[0]);
+    return (
+      <div className='main-container'>
+        <div className='image-container'>
+          <img src={this.state.images[0]} className='image'/>
+        </div>
+        <div className='control-panel-container'>
+          <ControlPanel/>
+        </div>
+      </div>
+    )
+  }
 }
