@@ -2,3 +2,5 @@ https://stackoverflow.com/questions/28216920/how-to-apply-exif-orientation
 https://bugs.chromium.org/p/chromium/issues/detail?id=158753
 https://gist.github.com/runeb/c11f864cd7ead969a5f0
 https://github.com/recurser/exif-orientation-examples
+
+https://www.npmjs.com/package/jimp

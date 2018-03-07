@@ -1,7 +1,9 @@
-import React, {Component} from 'react'
-import {render} from 'react-dom'
-import {} from './styles/global.css'
-import store from './store'
+import React, {Component} from 'react';
+import {render} from 'react-dom';
+import AutoRotateImage from './components/AutoRotateImage';
+
+import {} from './styles/global.css';
+import store from './store';
 import ControlPanel from "./components/ControlPanel";
 
 const remote = require("electron").remote;
@@ -32,6 +34,7 @@ export default class App extends Component {
     }
 
   }
+
   intervalId = null;
 
   onKeyDown = evt => {
@@ -67,16 +70,21 @@ export default class App extends Component {
   render() {
     console.log(this.state.images);
     console.log(this.state.index);
+    const image = this.state.images[this.state.index];
+    const className = image ? 'image orientation-' +  image.orientation : 'image';
+
     return (
       <div className='main-container' onKeyDown={this.onKeyDown} tabIndex="0">
         <div className='image-container'>
-          <img src={this.state.images[this.state.index]} className='image'/>
+          {image &&
+          <img src={image.path} className={className} />
+          }
         </div>
         <div className='control-panel-container' onKeyPress={this.onKeyDown}>
           <ControlPanel goBack={this.goBack} goForward={this.goForward} pause={this.pause}
                         play={this.play}/>
         </div>
       </div>
-    )
+    );
   }
 }
