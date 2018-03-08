@@ -68,9 +68,9 @@ body {
   /*-webkit-transform-style: preserve-3d;*/
   /*-webkit-transform: translateZ(0);*/
   /*--webkit-backface-visibility: hidden;*/
-  transition: transform 0s;
-  animation: fadeIn 5s;
-  -webkit-animation: fadeIn 5s;
+  /*transition: transform 0s;*/
+  /*animation: fadeIn 5s;*/
+  /*-webkit-animation: fadeIn 5s;*/
 }
 
 .hello {

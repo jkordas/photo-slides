@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {render} from 'react-dom';
-import AutoRotateImage from './components/AutoRotateImage';
+import Jimp from 'jimp';
 
 import {} from './styles/global.css';
 import store from './store';
@@ -26,11 +26,17 @@ export default class App extends Component {
     store.readFiles(filesLoadedCallback.bind(this));
     this.state = {
       images: [],
+      image: null,
       index: 0
     };
 
     function filesLoadedCallback(images) {
-      this.setState({images});
+      //TODO: load image
+      Jimp.read(images[0].path, (err, img) => {
+        img.getBase64(Jimp.AUTO, (err, result) => {
+          this.setState({images, image: result});
+        });
+      });
     }
 
   }
@@ -50,11 +56,20 @@ export default class App extends Component {
   goBack = () => {
     //NOTE: add this.state.images.length to always have positive number
     const index = (this.state.index - 1 + this.state.images.length) % this.state.images.length;
-    this.setState({index});
+    Jimp.read(this.state.images[index].path, (err, img) => {
+      img.getBase64(Jimp.AUTO, (err, result) => {
+        this.setState({index, image: result});
+      });
+    });
   };
   goForward = () => {
     const index = (this.state.index + 1) % this.state.images.length;
-    this.setState({index});
+    Jimp.read(this.state.images[index].path, (err, img) => {
+      img.exifRotate();
+      img.getBase64(Jimp.AUTO, (err, result) => {
+        this.setState({index, image: result});
+      });
+    });
   };
 
   pause = () => {
@@ -68,17 +83,15 @@ export default class App extends Component {
   };
 
   render() {
-    console.log(this.state.images);
-    console.log(this.state.index);
-    const image = this.state.images[this.state.index];
-    const className = image ? 'image orientation-' +  image.orientation : 'image';
+    // console.log(this.state.images);
+    // console.log(this.state.index);
+    // const image = this.state.images[this.state.index];
+    // const className = image ? 'image orientation-' + image.orientation : 'image';
 
     return (
       <div className='main-container' onKeyDown={this.onKeyDown} tabIndex="0">
         <div className='image-container'>
-          {image &&
-          <img src={image.path} className={className} />
-          }
+          <img src={this.state.image} className='image'/>
         </div>
         <div className='control-panel-container' onKeyPress={this.onKeyDown}>
           <ControlPanel goBack={this.goBack} goForward={this.goForward} pause={this.pause}
