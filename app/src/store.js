@@ -23,7 +23,6 @@ function readFiles(dirname, onError, callback) {
             //TODO: add empty photo
           }
           else {
-            console.log(exifData); // Do something with your data!
             const orientation = exifData.image.Orientation;
             images[index] = {path, orientation};
           }
